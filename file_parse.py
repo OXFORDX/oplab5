@@ -1,40 +1,56 @@
 # Alpha version of parsing
-container = []
-values = {}
-parameters = {'condition': 0, 'then': 0, 'else': 0}
-with open('code.txt', 'r') as file:
-    for i in file:
-        if '\n' in i:
-            container.append(i[:-1].replace(' ', ''))
-        else:
-            container.append(i.replace(' ', ''))
-print(container)
-for i, j in enumerate(container):
-    print('--')
-    s = ''
-    if 'if' not in j:
-        for x, y in enumerate(j):
-            if y == '=':
-                values[s] = int(j[x + 1:])
-            s += y
-            print(x, y)
-    else:
-        if_cont = []
-        const = 0
-        for x, y in enumerate(j):
-            if_str = ''
-            if y == '(':
-                while j[x + 1] != ')':
-                    x += 1
-                    if_str += j[x]
-                if const == 0:
-                    parameters['condition'] = if_str
-                elif const == 1:
-                    parameters['then'] = if_str
+class file_parse:
+    def __init__(self, file):
+        self.file = file
+        self.container = []
+        self.values = {}
+        self.parameters = {'condition': 0, 'then': 0, 'else': 0}
+        self.filling()
+
+    def parse_str(self):
+        with open(self.file, 'r') as file:
+            for i in file:
+                if '\n' in i:
+                    self.container.append(i[:-1].replace(' ', ''))
                 else:
-                    parameters['else'] = if_str
-                const += 1
-print(values)
-print(parameters)
+                    self.container.append(i.replace(' ', ''))
+        return self.container
 
+    def filling(self):
+        container = self.parse_str()
+        for i, j in enumerate(container):
+            s = ''
+            if 'if' not in j:
+                for x, y in enumerate(j):
+                    if y == '=':
+                        self.values[s] = j[x + 1:]
+                    s += y
+            else:
+                const = 0
+                for x, y in enumerate(j):
+                    if_str = ''
+                    if y == '(':
+                        while j[x] != ')':
+                            names = ''
+                            x += 1
+                            if j[x].isalpha():
+                                while j[x].isalpha():
+                                    names += j[x]
+                                    x += 1
+                                if_str += self.values[names]
+                                if not j[x].isalpha() and ')' not in j[x]:
+                                    if_str += j[x]
+                            else:
+                                if_str += j[x]
+                        if const == 0:
+                            self.parameters['condition'] = if_str
+                        elif const == 1:
+                            self.parameters['then'] = if_str
+                        else:
+                            self.parameters['else'] = if_str
+                        const += 1
 
+        return self.values, self.parameters
+
+    def __repr__(self):
+        return repr(self.values) + '\n' + repr(self.parameters)
