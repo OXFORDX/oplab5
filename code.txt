@@ -1,4 +1,4 @@
-a = 1
-b = 2
-c = 3
-if(c - a - b) -> (a * b - c) <> (a * c - b)
+kpi = 0
+lol = 2
+kek = 2
+if(kek - lol)(kek)(kpi)
