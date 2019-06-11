@@ -5,6 +5,7 @@ class file_parse:
         self.container = []
         self.values = {}
         self.parameters = {'condition': 0, 'then': 0, 'else': 0}
+        self.task = {}
         self.filling()
 
     def parse_str(self):
@@ -29,8 +30,8 @@ class file_parse:
                 const = 0
                 for x, y in enumerate(j):
                     if_str = ''
-                    if y == '(':
-                        while j[x] != ')':
+                    if y == '[':
+                        while j[x] != ']':
                             names = ''
                             x += 1
                             if j[x].isalpha():
@@ -38,10 +39,12 @@ class file_parse:
                                     names += j[x]
                                     x += 1
                                 if_str += self.values[names]
-                                if not j[x].isalpha() and ')' not in j[x]:
+                                if not j[x].isalpha() and ']' not in j[x]:
                                     if_str += j[x]
                             else:
                                 if_str += j[x]
+                        if if_str[len(if_str) - 1] == ']':
+                            if_str = if_str[:-1]
                         if const == 0:
                             self.parameters['condition'] = if_str
                         elif const == 1:

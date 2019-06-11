@@ -1,4 +1,4 @@
 kpi = 0
 lol = 2
 kek = 2
-if(kek - lol)(kek)(kpi)
+if[(1+kek) * 2 > 2][kek * 2][kpi]

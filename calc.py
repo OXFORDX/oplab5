@@ -148,7 +148,7 @@ class polish:
                 y, x = working.pop(), working.pop()
                 var = self.OPERATORS[str(z)][1](x, y)
                 working.push(var)
-                yield z, x, y
+                yield z, x
             else:
                 working.push(st1.pop())
 
