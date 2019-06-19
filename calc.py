@@ -146,11 +146,11 @@ class polish:
             if st1.peek() in self.OPERATORS:
                 z = st1.pop()
                 y, x = working.pop(), working.pop()
-                var = self.OPERATORS[str(z)][1](x, y)
-                working.push(var)
-                yield z, x
+                working.push([x, z, y])
+                yield x, z, y
             else:
                 working.push(st1.pop())
 
     def __repr__(self):
         return repr(self.result)
+
