@@ -1,4 +1,4 @@
-kpi = 0
-lol = 2
-kek = 2
-if[(1+kek) * 2 > 2][kek * 2][kpi]
+var = 12
+ver = 44
+vur = 32
+[ver - vur * (vur - ver)]

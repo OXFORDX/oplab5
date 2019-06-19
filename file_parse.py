@@ -21,10 +21,10 @@ class file_parse:
         container = self.parse_str()
         for i, j in enumerate(container):
             s = ''
-            if 'if' not in j:
+            if '[]' not in j:
                 for x, y in enumerate(j):
                     if y == '=':
-                        self.values[s] = j[x + 1:]
+                        self.values[s] = j[x + 1]
                     s += y
             else:
                 const = 0
@@ -57,3 +57,7 @@ class file_parse:
 
     def __repr__(self):
         return repr(self.values) + '\n' + repr(self.parameters)
+
+
+x = file_parse('code.txt')
+print(x)
