@@ -1,4 +1,8 @@
 var = 12
 ver = 44
 vur = 32
-[ver - vur * (vur - ver)]
+[ver - vur * (vur - ver) ^ (3 + var)]
+[var - vur - ver * 123]
+[var! / (12781 - 1 * 2)]
+[var / 3 - 1]
+[vur + ver / (33 * 2)]

@@ -17,7 +17,6 @@ class tree:
     def add(self):
         x = polish(self.calc)
         for i in x:
-            print(i)
             if type(i[0]) is list and type(i[2]) is list:
                 y, x = self.node_arr.pop(), self.node_arr.pop()
                 self.node_arr.append(Node(y, i[1], x))
@@ -49,4 +48,5 @@ class tree:
 
 tr = tree('2 - 3 / (4 * 5 - 1) ^ (4 - 1)')
 root = tr.add()
+tr.preorder(root)
 print(tr.answer())

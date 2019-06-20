@@ -1,10 +1,12 @@
 # Alpha version of parsing
+from tree import tree
+
+
 class file_parse:
     def __init__(self, file):
         self.file = file
         self.container = []
         self.values = {}
-        self.parameters = {'condition': 0, 'then': 0, 'else': 0}
         self.task = {}
         self.filling()
 
@@ -21,13 +23,12 @@ class file_parse:
         container = self.parse_str()
         for i, j in enumerate(container):
             s = ''
-            if '[]' not in j:
+            if '[' not in j or ']' not in j:
                 for x, y in enumerate(j):
                     if y == '=':
-                        self.values[s] = j[x + 1]
+                        self.values[s] = j[x + 1:]
                     s += y
             else:
-                const = 0
                 for x, y in enumerate(j):
                     if_str = ''
                     if y == '[':
@@ -45,19 +46,12 @@ class file_parse:
                                 if_str += j[x]
                         if if_str[len(if_str) - 1] == ']':
                             if_str = if_str[:-1]
-                        if const == 0:
-                            self.parameters['condition'] = if_str
-                        elif const == 1:
-                            self.parameters['then'] = if_str
-                        else:
-                            self.parameters['else'] = if_str
-                        const += 1
-
-        return self.values, self.parameters
-
-    def __repr__(self):
-        return repr(self.values) + '\n' + repr(self.parameters)
+                        tr = tree(if_str)
+                        root = tr.add()
+                        print('=\n' * 3)
+                        tr.preorder(root)
+                        print('===== Result: ', tr.answer(), '=====')
+                        print('=\n' * 3)
 
 
 x = file_parse('code.txt')
-print(x)
